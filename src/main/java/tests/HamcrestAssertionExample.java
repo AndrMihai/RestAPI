@@ -4,6 +4,8 @@ package tests;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
+import java.util.List;
+
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
@@ -61,6 +63,14 @@ public class HamcrestAssertionExample {
 		assertThat(name, matchesPattern("[A-Za-z0-9]+"));
 		String diameter = jsnPath.getString("diameter");
 		assertThat(diameter, matchesPattern("[0-9]+"));
+		List<String> movies = jsnPath.getList("films");
+		System.out.println(movies.get(1));
+		assertThat(movies, contains(
+				"https://swapi.dev/api/films/1/", 
+		        "https://swapi.dev/api/films/3/", 
+		        "https://swapi.dev/api/films/4/", 
+		        "https://swapi.dev/api/films/5/", 
+		        "https://swapi.dev/api/films/6/"));
 	}
 
 }
